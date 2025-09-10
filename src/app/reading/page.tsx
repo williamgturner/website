@@ -61,7 +61,7 @@ export default function Reading() {
 
   return (
     <div className="p-4">
-      <h1 className="mb-4">what I've been reading recently</h1>
+      <h1 className="mb-4">what i&apos;ve been reading recently</h1>
       <ul className="space-y-2">
         {readings.map((item) => (
           <li key={item.slug} className="hover:bg-gray-100">
