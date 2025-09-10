@@ -15,7 +15,6 @@ export default function TopTracks() {
   const [loading, setLoading] = useState(true);
   const [dots, setDots] = useState("");
 
-  // Animate dots
   useEffect(() => {
     const interval = setInterval(() => {
       setDots(prev => (prev.length >= 3 ? "" : prev + "."));
