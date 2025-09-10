@@ -45,7 +45,7 @@ export default function Photos() {
             key={i}
             src={src}
             alt={`Photo ${i}`}
-            className="absolute object-cover opacity-0 transition-opacity duration-700"
+            className="absolute object-cover opacity-0 transition-none"
             style={{
               top: `${finalTop}vw`,
               left: `${finalLeft}%`,
