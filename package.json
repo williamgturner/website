@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "generate-photos": "node scripts/generatePhotos.js",
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "npm run generate-photos && next build --turbopack",
     "start": "next start",
     "lint": "eslint"
   },
