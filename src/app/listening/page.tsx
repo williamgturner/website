@@ -1,47 +1,40 @@
-// pages/top-tracks.tsx
-"use client";
-import { useEffect, useState } from "react";
+"use client"; // ✅ Required for useState/useEffect
 
-type Track = {
-  title: string;
-  artist: string;
-  album: string;
-  albumImageUrl: string;
-  songUrl: string;
-};
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import type { TopTrack } from "../api/spotify-top-tracks";
 
 export default function Listening() {
-  const [tracks, setTracks] = useState<Track[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [tracks, setTracks] = useState<TopTrack[]>([]);
 
   useEffect(() => {
-    async function fetchTracks() {
-      const res = await fetch("/api/spotify-top-tracks");
-      const data = await res.json();
-      setTracks(data);
-      setLoading(false);
-    }
-    fetchTracks();
+    fetch("/api/spotify-top-tracks")
+      .then((res) => res.json())
+      .then(setTracks)
+      .catch(console.error);
   }, []);
 
-  if (loading) return <p>Loading top tracks...</p>;
-
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">My Top Spotify Tracks</h1>
-      <ul className="space-y-4">
-        {tracks.map((track, i) => (
-          <li key={i} className="flex items-center space-x-4 hover:bg-gray-100 p-2 rounded">
+    <div className="p-4 space-y-4">
+      <h1 className="text-xl font-bold">My Top Tracks</h1>
+      <ul className="space-y-2">
+        {tracks.map((track) => (
+          <li key={track.songUrl} className="flex items-center space-x-4 hover:bg-gray-100 p-2 rounded">
             {track.albumImageUrl && (
-              <img src={track.albumImageUrl} alt={track.album} className="w-16 h-16 object-cover rounded" />
+              <Image
+                src={track.albumImageUrl}
+                alt={track.title}
+                width={64}
+                height={64}
+                className="rounded"
+              />
             )}
             <div>
               <a href={track.songUrl} target="_blank" rel="noopener noreferrer" className="font-semibold">
                 {track.title}
               </a>
-              <p className="text-sm text-gray-600">
-                {track.artist} — {track.album}
-              </p>
+              <div className="text-sm text-gray-600">{track.artist}</div>
+              <div className="text-sm text-gray-500">{track.album}</div>
             </div>
           </li>
         ))}
