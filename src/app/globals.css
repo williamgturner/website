@@ -8,3 +8,17 @@ a {
   color: blue;
   text-decoration: underline;
 }
+
+
+.masonry-grid {
+  display: flex;
+  margin-left: -10px; /* gutter offset */
+  width: auto;
+}
+
+.grid-sizer,
+.grid-item {
+  width: 33.33%; /* default 3 columns */
+  padding-left: 10px; /* gutter */
+  margin-bottom: 10px;
+}

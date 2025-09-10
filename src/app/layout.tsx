@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${inconsolata.className} antialiased`}>
         <div className="flex flex-row w-screen, h-screen">
           <Navbar />
-          <main className="flex flex-1">{children}</main>
+          <main className="flex flex-1 overflow-y-auto overflow-x-hidden">{children}</main>
         </div>
       </body>
     </html>
