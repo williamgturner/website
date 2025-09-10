@@ -9,16 +9,22 @@ a {
   text-decoration: underline;
 }
 
-
-.masonry-grid {
-  display: flex;
-  margin-left: -10px; /* gutter offset */
-  width: auto;
+blockquote {
+  background-color: lightgrey;
+  display: block;
+  width: fit-content;
+  font-style: italic;
 }
 
-.grid-sizer,
-.grid-item {
-  width: 33.33%; /* default 3 columns */
-  padding-left: 10px; /* gutter */
-  margin-bottom: 10px;
+blockquote p::before {
+  content: "> ";
+}
+
+article h2 {
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+article h3 {
+  margin-bottom: 1rem;
 }

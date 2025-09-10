@@ -1,18 +1,25 @@
-// src/components/PostLayout.tsx
-export default function PostLayout({
-  children,
-  title,
-  date,
-}: {
-  children: React.ReactNode;
-  title?: string;
-  date?: string;
-}) {
+// PostLayout.tsx
+type Props = {
+  title: string
+  date: Date | string
+  children: React.ReactNode
+}
+
+export default function PostLayout({ title, date, children }: Props) {
+  const formatted =
+    date instanceof Date
+      ? date.toLocaleDateString("en-NZ", { year: "numeric", month: "long", day: "numeric" })
+      : date
+
   return (
-    <article className="prose mx-auto p-4">
-      {title && <h1 className="text-3xl font-bold">{title}</h1>}
-      {date && <p className="text-gray-500">{date}</p>}
-      <div className="mt-4">{children}</div>
-    </article>
-  );
+    <div className="p-4">
+      <article>
+        <div className="mb-5">
+          <h1 className="text-xl font-semibold">{title}</h1>
+        <time>{formatted}</time>
+        </div>
+        {children}
+      </article>
+    </div>
+  )
 }

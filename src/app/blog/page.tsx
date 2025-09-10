@@ -33,7 +33,14 @@ export default function Blog() {
     return {
       slug: filename.replace(/\.mdx$/, ""),
       title: frontmatter.title || filename.replace(/\.mdx$/, ""),
-      date: frontmatter.date,
+      date: frontmatter.date
+        ? new Date(frontmatter.date).toLocaleDateString("en-NZ", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })
+        : undefined,
+
     };
   });
 
