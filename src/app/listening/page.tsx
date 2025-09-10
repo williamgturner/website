@@ -1,4 +1,5 @@
 // pages/top-tracks.tsx
+"use client";
 import { useEffect, useState } from "react";
 
 type Track = {

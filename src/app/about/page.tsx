@@ -12,7 +12,6 @@ Email me?
     <div className="p-4 space-y-6">
       {text.split("\n").map((line, idx) => {
         if (line.includes("{{EMAIL}}")) {
-          // Replace the marker with an actual mailto link
           return (
             <p key={idx}>
               <a href="mailto:williamguyturner@proton.me">

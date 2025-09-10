@@ -18,8 +18,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`${inconsolata.className} antialiased`}>
         <div className="flex flex-row w-screen, h-screen">
-          <Navbar /> {/* Navbar at the top */}
-          <main className="flex flex-1">{children}</main> {/* Pages will render here */}
+          <Navbar />
+          <main className="flex flex-1">{children}</main>
         </div>
       </body>
     </html>

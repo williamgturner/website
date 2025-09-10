@@ -9,11 +9,9 @@ type PostMeta = {
 };
 
 export default function Blog() {
-  // 1. Get all MDX files in the posts folder
   const postsDir = path.join(process.cwd(), "posts");
   const filenames = fs.readdirSync(postsDir).filter((f) => f.endsWith(".mdx"));
 
-  // 2. Extract metadata (title/date) from frontmatter
   const posts: PostMeta[] = filenames.map((filename) => {
     const filePath = path.join(postsDir, filename);
     const source = fs.readFileSync(filePath, "utf-8");
@@ -35,7 +33,6 @@ export default function Blog() {
     };
   });
 
-  // 3. Sort posts by date descending (optional)
   posts.sort((a, b) => (a.date && b.date ? b.date.localeCompare(a.date) : 0));
 
   return (
