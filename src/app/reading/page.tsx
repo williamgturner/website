@@ -3,16 +3,17 @@ import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
 
+type ReadingFrontmatter = {
+  title: string;
+  author?: string;
+  year_published?: string;
+  date_read?: string;
+  rating?: number;
+};
+
 type ReadingItem = {
   slug: string;
-  frontmatter: {
-    title: string;
-    author?: string;
-    year_published?: string;
-    date_read?: string;
-    rating?: number;
-    [key: string]: any;
-  };
+  frontmatter: ReadingFrontmatter;
   content: string;
 };
 
@@ -24,28 +25,35 @@ export default function Reading() {
     const filePath = path.join(dir, file);
     const raw = fs.readFileSync(filePath, "utf-8");
     const { data, content } = matter(raw);
+
+    const frontmatter: ReadingFrontmatter = {
+      title: data.title ?? file.replace(/\.mdx$/, ""),
+      author: data.author,
+      year_published: data.year_published,
+      date_read: data.date_read,
+      rating: data.rating,
+    };
+
     return {
       slug: file.replace(/\.mdx$/, ""),
-      frontmatter: data as ReadingItem["frontmatter"],
+      frontmatter,
       content: content.trim(),
     };
   });
 
-  // Sort readings by date_read descending
+  // Sort by date_read descending
   readings.sort((a, b) => {
     const parseDate = (d?: string) => {
       if (!d) return new Date(0);
       if (/^\d{4}$/.test(d)) return new Date(`${d}-01-01`);
       return new Date(d.replace(/\//g, "-"));
     };
-
     return parseDate(b.frontmatter.date_read).getTime() - parseDate(a.frontmatter.date_read).getTime();
   });
 
-  // Helper to format date as DD/MM/YYYY
   const formatDateLE = (d?: string) => {
     if (!d) return "";
-    if (/^\d{4}$/.test(d)) return d; // just year
+    if (/^\d{4}$/.test(d)) return d;
     const parts = d.split(/[-\/]/);
     if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
     return d;

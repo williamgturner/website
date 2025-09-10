@@ -16,10 +16,10 @@ export default function Listening() {
 
   return (
     <div className="p-4 space-y-4">
-      <h1 className="text-xl font-bold">My Top Tracks</h1>
+      <h1>my top tracks</h1>
       <ul className="space-y-2">
         {tracks.map((track) => (
-          <li key={track.songUrl} className="flex items-center space-x-4 hover:bg-gray-100 p-2 rounded">
+          <li key={track.songUrl} className="flex items-center space-x-4 hover:bg-gray-100">
             {track.albumImageUrl && (
               <Image
                 src={track.albumImageUrl}
@@ -30,7 +30,7 @@ export default function Listening() {
               />
             )}
             <div>
-              <a href={track.songUrl} target="_blank" rel="noopener noreferrer" className="font-semibold">
+              <a href={track.songUrl} target="_blank" rel="noopener noreferrer">
                 {track.title}
               </a>
               <div className="text-sm text-gray-600">{track.artist}</div>
