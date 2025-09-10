@@ -1,6 +1,5 @@
 // app/api/spotify-top-tracks/route.ts
 import { NextRequest } from "next/server"
-import type { SpotifyApi } from "spotify-api"
 
 // ✅ Environment variables
 const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID!
