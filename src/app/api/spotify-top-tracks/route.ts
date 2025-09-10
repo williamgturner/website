@@ -1,13 +1,17 @@
 // app/api/spotify-top-tracks/route.ts
 import { NextRequest } from "next/server"
+import type { SpotifyApi } from "spotify-api"
 
+// ✅ Environment variables
 const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID!
 const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET!
 const SPOTIFY_REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN!
 
-const basic = Buffer.from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString("base64")
+const basic = Buffer.from(
+  `${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`
+).toString("base64")
 
-async function getAccessToken() {
+async function getAccessToken(): Promise<string> {
   const res = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: {
@@ -21,11 +25,19 @@ async function getAccessToken() {
   })
 
   if (!res.ok) throw new Error("Failed to get access token")
-  const data = await res.json()
+  const data: { access_token: string } = await res.json()
   return data.access_token
 }
 
-async function getTopTracks(accessToken: string) {
+type SimplifiedTrack = {
+  title: string
+  artist: string
+  album: string
+  albumImageUrl?: string
+  songUrl: string
+}
+
+async function getTopTracks(accessToken: string): Promise<SimplifiedTrack[]> {
   const res = await fetch(
     "https://api.spotify.com/v1/me/top/tracks?limit=10&time_range=short_term",
     {
@@ -34,11 +46,11 @@ async function getTopTracks(accessToken: string) {
   )
 
   if (!res.ok) throw new Error(`Spotify API error: ${res.status}`)
-  const data = await res.json()
+  const data: SpotifyApi.UsersTopTracksResponse = await res.json()
 
-  return data.items.map((track: any) => ({
+  return data.items.map((track: SpotifyApi.TrackObjectFull) => ({
     title: track.name,
-    artist: track.artists.map((a: any) => a.name).join(", "),
+    artist: track.artists.map((a) => a.name).join(", "),
     album: track.album.name,
     albumImageUrl: track.album.images?.[0]?.url,
     songUrl: track.external_urls.spotify,
@@ -50,9 +62,11 @@ export async function GET(_req: NextRequest) {
     const token = await getAccessToken()
     const tracks = await getTopTracks(token)
     return Response.json(tracks)
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const message =
+      err instanceof Error ? err.message : "Unknown error fetching tracks"
     return Response.json(
-      { error: "Failed to fetch top tracks", details: err.message },
+      { error: "Failed to fetch top tracks", details: message },
       { status: 500 }
     )
   }
