@@ -11,30 +11,53 @@ type Track = {
 };
 
 export default function TopTracks() {
-  const [tracks, setTracks] = useState<Track[]>([])
-  const [loading, setLoading] = useState(true)
+  const [tracks, setTracks] = useState<Track[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("/api/spotify-top-tracks")
-      .then(res => res.json())
+      .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {
-          setTracks(data)
+          setTracks(data);
         } else {
-          console.error("Unexpected response:", data)
+          console.error("Unexpected response:", data);
         }
       })
       .catch(console.error)
-      .finally(() => setLoading(false))
-  }, [])
+      .finally(() => setLoading(false));
+  }, []);
 
-  if (loading) return <div>Loading…</div>
+  if (loading) return <div className="mt-4 text-gray-500">Loading…</div>;
 
   return (
-    <ul>
-      {tracks.map((track) => (
-        <li key={track.songUrl}>{track.title} — {track.artist}</li>
-      ))}
-    </ul>
-  )
+    <div className="p-4">
+      <ul className="space-y-4">
+        {tracks.map((track) => (
+          <li key={track.songUrl} className="flex items-center gap-3">
+            {track.albumImageUrl && (
+              <img
+                src={track.albumImageUrl}
+                alt={`${track.album} cover`}
+                className="w-12 h-12"
+              />
+            )}
+            <div>
+              <div>
+                <a
+                  href={track.songUrl}
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  {track.title}
+                </a>
+              </div>
+              <div className="text-sm">
+                {track.artist}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
