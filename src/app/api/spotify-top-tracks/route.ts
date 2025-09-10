@@ -1,11 +1,11 @@
 // app/api/spotify-top-tracks/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server"
 
-const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID!;
-const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET!;
-const SPOTIFY_REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN!;
+const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID!
+const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET!
+const SPOTIFY_REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN!
 
-const basic = Buffer.from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString("base64");
+const basic = Buffer.from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString("base64")
 
 async function getAccessToken() {
   const res = await fetch("https://accounts.spotify.com/api/token", {
@@ -18,11 +18,11 @@ async function getAccessToken() {
       grant_type: "refresh_token",
       refresh_token: SPOTIFY_REFRESH_TOKEN,
     }),
-  });
+  })
 
-  if (!res.ok) throw new Error("Failed to get access token");
-  const data = await res.json();
-  return data.access_token;
+  if (!res.ok) throw new Error("Failed to get access token")
+  const data = await res.json()
+  return data.access_token
 }
 
 async function getTopTracks(accessToken: string) {
@@ -31,10 +31,10 @@ async function getTopTracks(accessToken: string) {
     {
       headers: { Authorization: `Bearer ${accessToken}` },
     }
-  );
+  )
 
-  if (!res.ok) throw new Error(`Spotify API error: ${res.status}`);
-  const data = await res.json();
+  if (!res.ok) throw new Error(`Spotify API error: ${res.status}`)
+  const data = await res.json()
 
   return data.items.map((track: any) => ({
     title: track.name,
@@ -42,18 +42,18 @@ async function getTopTracks(accessToken: string) {
     album: track.album.name,
     albumImageUrl: track.album.images?.[0]?.url,
     songUrl: track.external_urls.spotify,
-  }));
+  }))
 }
 
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest) {
   try {
-    const token = await getAccessToken();
-    const tracks = await getTopTracks(token);
-    return NextResponse.json(tracks);
+    const token = await getAccessToken()
+    const tracks = await getTopTracks(token)
+    return Response.json(tracks)
   } catch (err: any) {
-    return NextResponse.json(
+    return Response.json(
       { error: "Failed to fetch top tracks", details: err.message },
       { status: 500 }
-    );
+    )
   }
 }
