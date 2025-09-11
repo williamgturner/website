@@ -1,11 +1,14 @@
 export default function Cv() {
-    return (
+  return (
     <div className="flex flex-1 h-screen">
-        <iframe
+      <iframe
         src="/cv.pdf"
-        width="50%"
-        height="90%"
-        className="mx-auto my-auto border-4 border-[#333]"        />
+        className="
+          mx-auto my-auto border-4 border-[#333]
+          w-full h-full           
+          lg:w-1/2 lg:h-[90%]  
+        "
+      />
     </div>
-    );
+  );
 }

@@ -14,7 +14,7 @@ export default async function ReadingPost({ params }: Props) {
   const { data, content } = matter(source);
 
   return (
-    <div className="prose p-4 max-w-3/4">
+    <div className="prose p-4 md:max-w-3/4">
       <h1>{data.title}</h1>
       {data.author && <p><strong>Author:</strong> {data.author}</p>}
       {data.year_published && <p><strong>Year Published:</strong> {data.year_published}</p>}
