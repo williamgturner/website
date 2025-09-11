@@ -25,8 +25,8 @@ export default function Navbar() {
             <li key={page.href} className="py-1">
               <Link
                 href={page.href}
-                className={`block w-full h-full hover:bg-[purple] ${
-                  isActive ? "bg-[purple] font-bold" : "font-normal"
+                className={`block w-full h-full hover:bg-[darkorange] ${
+                  isActive ? "bg-[darkorange] font-bold" : "font-normal"
                 }`}
               >
                 {page.name}

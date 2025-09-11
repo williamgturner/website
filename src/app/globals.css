@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 body {
-  background-color: darkslategray;
-  color: #0FFF50;
+  background-color: oldlace;
+  color: black;
 }
 
 a {
-  color: orange;
+  color: green;
   text-decoration: underline;
 }
 
