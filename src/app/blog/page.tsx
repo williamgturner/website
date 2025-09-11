@@ -36,7 +36,7 @@ export default function Blog() {
       date: frontmatter.date
         ? new Date(frontmatter.date).toLocaleDateString("en-NZ", {
             year: "numeric",
-            month: "long",
+            month: "numeric",
             day: "numeric",
           })
         : undefined,
@@ -55,15 +55,14 @@ export default function Blog() {
       <ul className="space-y-2">
         {posts.map((post) => (
           <li key={post.slug}>
-            <Link
-              href={`/blog/${post.slug}`}
-              className="text-blue-600 hover:underline"
-            >
-              {post.title}{" "}
+            <div className="flex flex-col">
               {post.date && (
-                <span className="text-[red]">({post.date})</span>
+                <span className="text-[#6d6d6d] text-sm">{post.date}</span>
               )}
-            </Link>
+              <Link href={`/blog/${post.slug}`} className="no-underline hover:bg-[orange]">
+                {post.title}
+              </Link>
+            </div>
           </li>
         ))}
       </ul>
