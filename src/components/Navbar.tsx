@@ -1,4 +1,4 @@
-"use client"; // needed for hooks in components
+"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -26,7 +26,7 @@ export default function Navbar() {
               <Link
                 href={page.href}
                 className={`block w-full h-full hover:bg-[purple] ${
-                  isActive ? "font-bold" : "font-normal"
+                  isActive ? "bg-[purple] font-bold" : "font-normal"
                 }`}
               >
                 {page.name}

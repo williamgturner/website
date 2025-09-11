@@ -76,7 +76,7 @@ export default function Reading() {
                 {item.frontmatter.year_published && ` (${item.frontmatter.year_published})`}
               </span>
             )}
-            <div className="text-sm text-black">
+            <div className="text-sm text-[red]">
               {item.frontmatter.author && `${item.frontmatter.author}, `}
               {item.frontmatter.date_read && `read ${formatDateLE(item.frontmatter.date_read)}`}
               {item.frontmatter.rating && `, rating: ${item.frontmatter.rating}/10`}
