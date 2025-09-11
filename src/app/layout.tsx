@@ -9,8 +9,8 @@ const inconsolata = Inconsolata({
 });
 
 export const metadata: Metadata = {
-  title: "will turner",
-  description: "will turner's personal website",
+  title: "William Turner",
+  description: "William Turner's personal website",
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
