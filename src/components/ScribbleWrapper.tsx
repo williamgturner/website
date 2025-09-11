@@ -16,29 +16,17 @@ const scribbles = [
   "/images/scribble9.svg",
 ];
 
-// Possible positions
-const positions = [
-  "top left",
-  "top center",
-  "top right",
-  "center left",
-  "center",
-  "center right",
-  "bottom left",
-  "bottom center",
-  "bottom right",
-];
-
 export default function ScribbleWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname(); // triggers recompute on route change
 
-  const { scribble, position } = useMemo(() => {
+  const { scribble, posX, posY } = useMemo(() => {
     const scribbleIndex = Math.floor(Math.random() * scribbles.length);
-    const positionIndex = Math.floor(Math.random() * positions.length);
-    return {
-      scribble: scribbles[scribbleIndex],
-      position: positions[positionIndex],
-    };
+
+    // random percentage positions from 0% to 100%
+    const posX = Math.floor(Math.random() * 101);
+    const posY = Math.floor(Math.random() * 101);
+
+    return { scribble: scribbles[scribbleIndex], posX, posY };
   }, [pathname]);
 
   return (
@@ -48,7 +36,7 @@ export default function ScribbleWrapper({ children }: { children: React.ReactNod
         style={{
           backgroundImage: `url(${scribble})`,
           backgroundRepeat: "no-repeat",
-          backgroundPosition: position,
+          backgroundPosition: `${posX}% ${posY}%`,
           backgroundSize: "50%",
           opacity: 0.05,
         }}
