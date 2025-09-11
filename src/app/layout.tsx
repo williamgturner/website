@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Inconsolata } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import ScribbleWrapper from "@/components/ScribbleWrapper"; // path to the wrapper
+import ScribbleWrapper from "@/components/ScribbleWrapper";
+import ClientAudio from "@/components/ClientAudio"; // client-only component
 
 const inconsolata = Inconsolata({
   subsets: ["latin"],
@@ -25,6 +26,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${inconsolata.className} antialiased`}>
+        <ClientAudio />
+
         <div className="flex flex-row w-screen h-screen">
           <Navbar />
           <ScribbleWrapper>
