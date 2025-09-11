@@ -141,7 +141,7 @@ export default function Home() {
             </span>
           )}
           <Link
-            href={`/books/${lastBookRead.slug}`}
+            href={`/reading/${lastBookRead.slug}`}
             className="no-underline hover:bg-[orange]"
           >
             {lastBookRead.title}

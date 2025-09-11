@@ -15,12 +15,14 @@ export default async function ReadingPost({ params }: Props) {
 
   return (
     <div className="prose p-4 md:max-w-3/4">
-      <h1>{data.title}</h1>
-      {data.author && <p><strong>Author:</strong> {data.author}</p>}
-      {data.year_published && <p><strong>Year Published:</strong> {data.year_published}</p>}
-      {data.date_read && <p><strong>Date Read:</strong> {data.date_read}</p>}
-      {data.rating && <p><strong>Rating:</strong> {data.rating}/10</p>}
-      
+      <div className="mb-4">
+        <h1 className="mb-4">{data.title}</h1>
+        {data.author && <p><strong>Author:</strong> {data.author}</p>}
+        {data.year_published && <p><strong>Year Published:</strong> {data.year_published}</p>}
+        {data.date_read && <p><strong>Date Read:</strong> {data.date_read}</p>}
+        {data.rating && <p><strong>Rating:</strong> {data.rating}/10</p>}
+      </div>
+
       {/* Render MDX content */}
       <MDXRemote source={content} />
     </div>
