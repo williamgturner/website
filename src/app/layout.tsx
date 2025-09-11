@@ -35,7 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="flex flex-row w-screen h-screen">
           <Navbar />
           <ScribbleWrapper>
-            <main className="h-screen flex flex-1 overflow-y-auto overflow-x-hidden">
+            <main className="h-screen flex flex-1 overflow-y-auto overflow-x-visible">
               {children}
             </main>
           </ScribbleWrapper>
