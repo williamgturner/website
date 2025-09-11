@@ -28,14 +28,14 @@ export default function TopTracks() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="mt-4 text-gray-500">Loading…</div>;
+  if (loading) return <div className="mt-4">Loading…</div>;
 
   return (
     <div className="p-4">
       <h1 className="mb-4">what i&apos;ve been listening to recently</h1>
       <ul className="space-y-4">
         {tracks.map((track) => (
-          <li key={track.songUrl} className="flex items-center gap-3">
+          <li key={track.songUrl} className="flex items-center gap-3 hover:bg-[purple]">
             {track.albumImageUrl && (
               <img
                 src={track.albumImageUrl}

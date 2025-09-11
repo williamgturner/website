@@ -64,7 +64,7 @@ export default function Reading() {
       <h1 className="mb-4">what i&apos;ve been reading recently</h1>
       <ul className="space-y-2">
         {readings.map((item) => (
-          <li key={item.slug} className="hover:bg-gray-100">
+          <li key={item.slug} className="hover:bg-[purple]">
             {item.content.length > 0 ? (
               <Link href={`/reading/${item.slug}`} className="block w-full h-full">
                 {item.frontmatter.title}
@@ -76,7 +76,7 @@ export default function Reading() {
                 {item.frontmatter.year_published && ` (${item.frontmatter.year_published})`}
               </span>
             )}
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-black">
               {item.frontmatter.author && `${item.frontmatter.author}, `}
               {item.frontmatter.date_read && `read ${formatDateLE(item.frontmatter.date_read)}`}
               {item.frontmatter.rating && `, rating: ${item.frontmatter.rating}/10`}

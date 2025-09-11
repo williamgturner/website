@@ -1,6 +1,6 @@
 export default function About() {
   const text = `Kia Ora,
-My name is Will.
+My name is William.
 I like reading books and writing code.
 Sometimes I just stare at the ceiling and think.
 

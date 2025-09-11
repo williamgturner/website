@@ -1,16 +1,17 @@
 @import "tailwindcss";
 
 body {
-  background-color: aliceblue;
+  background-color: darkslategray;
+  color: #0FFF50;
 }
 
 a {
-  color: blue;
+  color: orange;
   text-decoration: underline;
 }
 
 blockquote {
-  background-color: lightgrey;
+  background-color: gray;
   display: block;
   width: fit-content;
   font-style: italic;
