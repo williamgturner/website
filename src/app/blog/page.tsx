@@ -61,7 +61,7 @@ export default function Blog() {
             >
               {post.title}{" "}
               {post.date && (
-                <span className="text-gray-500">({post.date})</span>
+                <span className="text-[red]">({post.date})</span>
               )}
             </Link>
           </li>
