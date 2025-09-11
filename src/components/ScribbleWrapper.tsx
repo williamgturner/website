@@ -4,7 +4,6 @@ import { useMemo } from "react";
 import { usePathname } from "next/navigation";
 
 const scribbles = [
-  "/images/scribble.svg",
   "/images/scribble0.svg",
   "/images/scribble1.svg",
   "/images/scribble2.svg",
@@ -12,6 +11,9 @@ const scribbles = [
   "/images/scribble4.svg",
   "/images/scribble5.svg",
   "/images/scribble6.svg",
+  "/images/scribble7.svg",
+  "/images/scribble8.svg",
+  "/images/scribble9.svg",
 ];
 
 // Possible positions
