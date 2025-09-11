@@ -43,7 +43,7 @@ Email me?
         }
 
         return (
-          <p key={idx} className="m-0">
+          <p key={idx} className="m-0 mt-10">
             {line.trim() === "" ? "\u00A0" : line}
           </p>
         );
