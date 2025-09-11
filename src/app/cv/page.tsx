@@ -1,6 +1,6 @@
 export default function Cv() {
     return (
-    <div className="flex flex-1">
+    <div className="flex flex-1 h-screen">
         <iframe
         src="/cv.pdf"
         width="50%"
