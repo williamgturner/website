@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inconsolata } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next"
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import ScribbleWrapper from "@/components/ScribbleWrapper";
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${inconsolata.className} antialiased`}>
+        <Analytics />
         <ClientAudio />
 
         <div className="flex flex-row w-screen h-screen">
