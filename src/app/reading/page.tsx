@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
+import Script from "next/script";
 
 type ReadingFrontmatter = {
   title: string;
@@ -84,6 +85,16 @@ export default function Reading() {
           </li>
         ))}
       </ul>
+      <div className="mt-4" id="website-bookclub">
+        <Script
+          src="https://isak.me/onionring/onionring-variables.js"
+          strategy="afterInteractive"
+        />
+        <Script
+          src="https://isak.me/onionring/onionring-widget.js"
+          strategy="afterInteractive"
+        />
+      </div>
     </div>
   );
 }

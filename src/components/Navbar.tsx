@@ -21,7 +21,6 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // ensure document is available for portal (avoid SSR mismatch)
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -64,7 +63,6 @@ export default function Navbar() {
 
   return (
     <nav className="m-2">
-      {/* Desktop sidebar */}
       <ul className="hidden md:flex md:flex-col md:w-48">
         {pages.map((page) => {
           const isActive = pathname === page.href;
@@ -83,7 +81,6 @@ export default function Navbar() {
         })}
       </ul>
 
-      {/* Mobile hamburger */}
       <div className="md:hidden">
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -94,7 +91,6 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Portal the overlay/menu into document.body so it isn't constrained by ancestors */}
       {mounted && isOpen && createPortal(menuPanel, document.body)}
     </nav>
   );
