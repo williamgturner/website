@@ -113,7 +113,8 @@ export default function Home() {
   const lastBookRead = getLastBookRead();
 
   return (
-    <div className="p-4 space-y-8">
+    <div className="p-4 space-y-4 ">
+      <h1>Home</h1>
       {mostRecentPost && (
         <div className="flex flex-col">
           <h1>Recent Post</h1>
