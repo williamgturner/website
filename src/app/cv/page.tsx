@@ -5,7 +5,7 @@ export default function Cv() {
         src="/cv.pdf"
         className="
           mx-auto my-auto border-4 border-[#333]
-          w-full h-full           
+          h-full           
           lg:w-1/2 lg:h-[90%]  
         "
       />
