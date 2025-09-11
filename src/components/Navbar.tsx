@@ -42,7 +42,7 @@ export default function Navbar() {
 
         <ul className="flex flex-col">
           {pages.map((page) => {
-            const isActive = pathname === page.href;
+            const isActive = pathname === page.href || pathname.startsWith(`${page.href}/`);
             return (
               <li key={page.href} className="py-1">
                 <Link
@@ -66,7 +66,8 @@ export default function Navbar() {
     <nav className="m-2">
       <ul className="hidden md:flex md:flex-col md:w-48">
         {pages.map((page) => {
-          const isActive = pathname === page.href;
+          const isActive = pathname === page.href || pathname.startsWith(`${page.href}/`);
+
           return (
             <li key={page.href} className="py-1">
               <Link
