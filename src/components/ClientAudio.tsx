@@ -37,7 +37,7 @@ export default function ClientAudio() {
         borderRadius: "8px",
       }}
     >
-      <source src="/audio/morning-chorus.mp3" type="audio/mpeg" />
+      <source src="/audio/dawn-chorus.mp3" type="audio/mpeg" />
     </audio>
   );
 }
