@@ -32,7 +32,7 @@ export default function TopTracks() {
 
   return (
     <div className="p-4">
-      <h1 className="mb-4">what i&apos;ve been listening to recently</h1>
+      <h1 className="mb-4">What I&apos;ve Been Listening to Recently</h1>
       <ul className="space-y-4">
         {tracks.map((track) => (
           <li key={track.songUrl} className="flex items-center gap-3 hover:bg-[purple]">
