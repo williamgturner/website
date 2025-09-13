@@ -5,7 +5,7 @@ import Link from "next/link";
 type PostMeta = {
   slug: string;
   title: string;
-  date?: string;
+  date?: Date;
 };
 
 export default function Blog() {
@@ -33,20 +33,13 @@ export default function Blog() {
     return {
       slug: filename.replace(/\.mdx$/, ""),
       title: frontmatter.title || filename.replace(/\.mdx$/, ""),
-      date: frontmatter.date
-        ? new Date(frontmatter.date).toLocaleDateString("en-NZ", {
-            year: "numeric",
-            month: "numeric",
-            day: "numeric",
-          })
-        : undefined,
-
+      date: frontmatter.date ? new Date(frontmatter.date) : undefined,
     };
   });
 
   // Sort by date descending (undefined dates go last)
   posts.sort((a, b) =>
-    a.date && b.date ? b.date.localeCompare(a.date) : a.date ? -1 : 1
+    a.date && b.date ? b.date.getTime() - a.date.getTime() : a.date ? -1 : 1
   );
 
   return (
@@ -57,9 +50,18 @@ export default function Blog() {
           <li key={post.slug}>
             <div className="flex flex-col">
               {post.date && (
-                <span className="text-[#6d6d6d] text-sm">{post.date}</span>
+                <span className="text-[#6d6d6d] text-sm">
+                  {post.date.toLocaleDateString("en-NZ", {
+                    year: "numeric",
+                    month: "numeric",
+                    day: "numeric",
+                  })}
+                </span>
               )}
-              <Link href={`/blog/${post.slug}`} className="no-underline hover:bg-[orange]">
+              <Link
+                href={`/blog/${post.slug}`}
+                className="no-underline hover:bg-[orange]"
+              >
                 {post.title}
               </Link>
             </div>
