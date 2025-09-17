@@ -16,7 +16,6 @@
     "@vercel/speed-insights": "^1.2.0",
     "gray-matter": "^4.0.3",
     "imagesloaded": "^5.0.0",
-    "masonry-layout": "^4.2.2",
     "next": "15.5.2",
     "next-mdx-remote": "^5.0.0",
     "react": "19.1.0",

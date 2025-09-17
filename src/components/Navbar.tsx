@@ -27,22 +27,18 @@ export default function Navbar() {
   }, []);
 
   const menuPanel = (
-    <div className="fixed inset-0 z-[9999] bg-opacity-50" onClick={() => setIsOpen(false)}>
+    <div
+      className="fixed inset-0 z-[9999]"
+      onClick={() => setIsOpen(false)}
+    >
       <div
-        className="absolute top-0 left-0 w-64 h-full bg-white shadow p-4 z-[10000]"
+        className="absolute top-0 right-0 w-64 h-full bg-white shadow p-4 pt-16 z-[10000]"
         onClick={(e) => e.stopPropagation()}
       >
-        <button
-          onClick={() => setIsOpen(false)}
-          className="mb-4 p-2 rounded"
-          aria-label="Close menu"
-        >
-          ✕
-        </button>
-
-        <ul className="flex flex-col">
+        <ul className="flex flex-col mt-10">
           {pages.map((page) => {
-            const isActive = pathname === page.href || pathname.startsWith(`${page.href}/`);
+            const isActive =
+              pathname === page.href || pathname.startsWith(`${page.href}/`);
             return (
               <li key={page.href} className="py-1">
                 <Link
@@ -63,10 +59,12 @@ export default function Navbar() {
   );
 
   return (
-    <nav className="m-2">
-      <ul className="hidden md:flex md:flex-col md:w-48">
+    <nav className="relative">
+      {/* Desktop sidebar */}
+      <ul className="hidden md:flex md:flex-col md:w-48 p-4">
         {pages.map((page) => {
-          const isActive = pathname === page.href || pathname.startsWith(`${page.href}/`);
+          const isActive =
+            pathname === page.href || pathname.startsWith(`${page.href}/`);
 
           return (
             <li key={page.href} className="py-1">
@@ -83,15 +81,18 @@ export default function Navbar() {
         })}
       </ul>
 
-      <div className="md:hidden">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="p-2"
-          aria-label="Toggle menu"
-        >
-          {!isOpen ? <span className="block text-2xl">☰</span> : <span className="block text-2xl">✕</span>}
-        </button>
-      </div>
+      {/* Mobile hamburger */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="md:hidden fixed top-2 right-2 p-2 z-[10001]"
+        aria-label="Toggle menu"
+      >
+        {!isOpen ? (
+          <span className="block text-2xl">☰</span>
+        ) : (
+          <span className="block text-2xl">✕</span>
+        )}
+      </button>
 
       {mounted && isOpen && createPortal(menuPanel, document.body)}
     </nav>
