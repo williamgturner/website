@@ -115,39 +115,46 @@ export default function Home() {
   return (
     <div className="p-4 space-y-4 ">
       <h1>Home</h1>
-      {mostRecentPost && (
-        <div className="flex flex-col">
-          <h1>Recent Post</h1>
-          {mostRecentPost.date && (
-            <span className="text-[#6d6d6d] text-sm">
-              {mostRecentPost.date}
-            </span>
-          )}
-          <Link
-            href={`/blog/${mostRecentPost.slug}`}
-            className="no-underline hover:bg-[orange]"
-          >
-            {mostRecentPost.title}
-          </Link>
-        </div>
-      )}
+        {mostRecentPost && (
+          <div className="flex flex-col">
+            <h1>Recent Post</h1>
+            {mostRecentPost.date && (
+              <span className="text-[#6d6d6d] text-sm">
+                {mostRecentPost.date}
+              </span>
+            )}
+            <Link
+              href={`/blog/${mostRecentPost.slug}`}
+              className="hover:bg-[orange]"
+            >
+              {mostRecentPost.title}
+            </Link>
+          </div>
+        )}
 
-      {lastBookRead && (
-        <div className="flex flex-col">
-          <h1>Last Book Read</h1>
-          {lastBookRead.dateRead && (
-            <span className="text-[#6d6d6d] text-sm">
-              {lastBookRead.dateRead}
-            </span>
-          )}
-          <Link
-            href={`/reading/${lastBookRead.slug}`}
-            className="no-underline hover:bg-[orange]"
-          >
-            {lastBookRead.title}
-          </Link>
-        </div>
-      )}
+        {lastBookRead && (
+          <div className="flex flex-col">
+            <h1>Last Book Read</h1>
+            {lastBookRead.dateRead && (
+              <span className="text-[#6d6d6d] text-sm">
+                {lastBookRead.dateRead}
+              </span>
+            )}
+            <Link
+              href={`/reading/${lastBookRead.slug}`}
+              className="hover:bg-[orange]"
+            >
+              {lastBookRead.title}
+            </Link>
+          </div>
+        )}
+      <div>
+        <h1>A Cool Picture I Took</h1>
+        <span className="text-[#6d6d6d] text-sm">
+                2 March 2022
+              </span>
+        <img className="w-100" src="/index.jpg" alt="home-page image"></img>
+      </div>
     </div>
   );
 }

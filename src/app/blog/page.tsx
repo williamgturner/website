@@ -45,6 +45,7 @@ export default function Blog() {
   return (
     <div className="prose p-4">
       <h1 className="mb-4">Blog</h1>
+      <h1>Recent</h1>
       <ul className="space-y-2">
         {posts.map((post) => (
           <li key={post.slug}>
@@ -60,7 +61,7 @@ export default function Blog() {
               )}
               <Link
                 href={`/blog/${post.slug}`}
-                className="no-underline hover:bg-[orange]"
+                className="hover:bg-[orange]"
               >
                 {post.title}
               </Link>
