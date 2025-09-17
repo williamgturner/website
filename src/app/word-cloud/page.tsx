@@ -24,5 +24,12 @@ export default function WordCloudPage() {
     .split(/\s+/)
     .filter(Boolean);
 
-  return <WordCloud words={words} />;
+  return (
+    <div className="p-4 w-full">
+      <h1 className="mb-4">A Collection of Words From My Posts</h1>
+      <span>Rearrange my thoughts to create new sentences</span>
+      <WordCloud words={words} />
+    </div>
+  
+  );
 }

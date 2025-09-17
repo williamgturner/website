@@ -77,7 +77,7 @@ export default function WordCloud({ words }: WordCloudProps) {
       ctx.translate(word.x + word.width / 2, word.y + word.height / 2);
       ctx.rotate(word.rotation);
       ctx.fillStyle = word.color;
-      ctx.font = "20px sans-serif";
+      ctx.font = "1.25rem sans-serif";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillText(word.text, 0, 0);
@@ -137,8 +137,8 @@ export default function WordCloud({ words }: WordCloudProps) {
     <canvas
       ref={canvasRef}
       style={{
-        width: "100vw",
-        height: "100vh",
+        width: "100%",
+        height: "100%",
         cursor:
           draggingIndex !== null
             ? "grabbing"
