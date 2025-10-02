@@ -1,11 +1,13 @@
 import fs from "fs";
 import path from "path";
 import Link from "next/link";
+import yaml from "js-yaml";
 
 type PostMeta = {
   slug: string;
   title: string;
   date?: Date;
+  description?: string;
 };
 
 export default function Blog() {
@@ -20,20 +22,21 @@ export default function Blog() {
 
     // Extract YAML frontmatter
     const match = source.match(/---\s*([\s\S]*?)\s*---/);
-    const frontmatter: Record<string, string> = {};
+    let frontmatter: Record<string, any> = {};
 
     if (match) {
-      const fmLines = match[1].split("\n").filter(Boolean);
-      fmLines.forEach((line) => {
-        const [key, ...rest] = line.split(":");
-        frontmatter[key.trim()] = rest.join(":").trim();
-      });
+      try {
+        frontmatter = yaml.load(match[1]) as Record<string, any>;
+      } catch (err) {
+        console.error(`Error parsing frontmatter in ${filename}:`, err);
+      }
     }
 
     return {
       slug: filename.replace(/\.mdx$/, ""),
       title: frontmatter.title || filename.replace(/\.mdx$/, ""),
       date: frontmatter.date ? new Date(frontmatter.date) : undefined,
+      description: frontmatter.description || "",
     };
   });
 
@@ -46,12 +49,16 @@ export default function Blog() {
     <div className="prose p-4">
       <h1 className="mb-4">Blog</h1>
       <h1>Recent</h1>
-      <ul className="space-y-2">
+      <ul className="space-y-4">
         {posts.map((post) => (
           <li key={post.slug}>
             <div className="flex flex-col">
+              
+              <Link href={`/blog/${post.slug}`} className="hover:bg-[orange]">
+                {post.title}
+              </Link>
               {post.date && (
-                <span className="text-[#6d6d6d] text-sm">
+                <span className="text-[#6d6d6d] text-sm italic">
                   {post.date.toLocaleDateString("en-NZ", {
                     year: "numeric",
                     month: "numeric",
@@ -59,12 +66,12 @@ export default function Blog() {
                   })}
                 </span>
               )}
-              <Link
-                href={`/blog/${post.slug}`}
-                className="hover:bg-[orange]"
-              >
-                {post.title}
-              </Link>
+              
+              {post.description && (
+                <span className="text-[#6d6d6d] text-sm italic">
+                  {post.description}
+                </span>
+              )}
             </div>
           </li>
         ))}

@@ -13,12 +13,14 @@ export default function PostLayout({ title, date, children }: Props) {
 
   return (
     <div className="p-4 md:max-w-3/4">
-      <article>
+      <article className="pb-4">
         <div className="mb-5">
           <h1 className="text-xl font-semibold">{title}</h1>
-        <time>{formatted}</time>
+          <time>{formatted}</time>
         </div>
-        {children}
+        <div className="space-y-6">
+          {children}
+        </div>
       </article>
     </div>
   )
