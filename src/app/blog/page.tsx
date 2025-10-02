@@ -3,6 +3,12 @@ import path from "path";
 import Link from "next/link";
 import yaml from "js-yaml";
 
+type PostFrontMatter = {
+  title?: string;
+  date?: string;
+  description?: string;
+};
+
 type PostMeta = {
   slug: string;
   title: string;
@@ -22,11 +28,11 @@ export default function Blog() {
 
     // Extract YAML frontmatter
     const match = source.match(/---\s*([\s\S]*?)\s*---/);
-    let frontmatter: Record<string, any> = {};
+    let frontmatter: PostFrontMatter = {};
 
     if (match) {
       try {
-        frontmatter = yaml.load(match[1]) as Record<string, any>;
+        frontmatter = yaml.load(match[1]) as PostFrontMatter;
       } catch (err) {
         console.error(`Error parsing frontmatter in ${filename}:`, err);
       }
@@ -34,9 +40,9 @@ export default function Blog() {
 
     return {
       slug: filename.replace(/\.mdx$/, ""),
-      title: frontmatter.title || filename.replace(/\.mdx$/, ""),
+      title: frontmatter.title ?? filename.replace(/\.mdx$/, ""),
       date: frontmatter.date ? new Date(frontmatter.date) : undefined,
-      description: frontmatter.description || "",
+      description: frontmatter.description ?? "",
     };
   });
 
@@ -53,7 +59,6 @@ export default function Blog() {
         {posts.map((post) => (
           <li key={post.slug}>
             <div className="flex flex-col">
-              
               <Link href={`/blog/${post.slug}`} className="hover:bg-[orange]">
                 {post.title}
               </Link>
@@ -66,7 +71,6 @@ export default function Blog() {
                   })}
                 </span>
               )}
-              
               {post.description && (
                 <span className="text-[#6d6d6d] text-sm italic">
                   {post.description}
