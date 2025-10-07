@@ -7,6 +7,7 @@ type PostMeta = {
   title: string;
   date?: string;
   rawDate?: Date;
+  hasContent: boolean;
 };
 
 type BookMeta = {
@@ -14,10 +15,18 @@ type BookMeta = {
   title: string;
   dateRead?: string;
   rawDateRead?: Date;
+  hasContent: boolean;
 };
+
+// Helper to remove surrounding quotes
+function cleanTitle(title: string) {
+  return title.replace(/^["']|["']$/g, "");
+}
 
 function getMostRecentPost(): PostMeta | undefined {
   const postsDir = path.join(process.cwd(), "posts");
+  if (!fs.existsSync(postsDir)) return undefined;
+
   const filenames = fs
     .readdirSync(postsDir)
     .filter((f) => f.endsWith(".mdx"));
@@ -28,19 +37,22 @@ function getMostRecentPost(): PostMeta | undefined {
 
     const match = source.match(/---\s*([\s\S]*?)\s*---/);
     const frontmatter: Record<string, string> = {};
+    let body = source;
+
     if (match) {
       const fmLines = match[1].split("\n").filter(Boolean);
       fmLines.forEach((line) => {
         const [key, ...rest] = line.split(":");
         frontmatter[key.trim()] = rest.join(":").trim();
       });
+      body = source.slice(match[0].length).trim();
     }
 
     const rawDate = frontmatter.date ? new Date(frontmatter.date) : undefined;
 
     return {
       slug: filename.replace(/\.mdx$/, ""),
-      title: frontmatter.title || filename.replace(/\.mdx$/, ""),
+      title: cleanTitle(frontmatter.title || filename.replace(/\.mdx$/, "")),
       date: rawDate
         ? rawDate.toLocaleDateString("en-NZ", {
             year: "numeric",
@@ -49,6 +61,7 @@ function getMostRecentPost(): PostMeta | undefined {
           })
         : undefined,
       rawDate,
+      hasContent: body.length > 0,
     };
   });
 
@@ -73,12 +86,15 @@ function getLastBookRead(): BookMeta | undefined {
 
     const match = source.match(/---\s*([\s\S]*?)\s*---/);
     const frontmatter: Record<string, string> = {};
+    let body = source;
+
     if (match) {
       const fmLines = match[1].split("\n").filter(Boolean);
       fmLines.forEach((line) => {
         const [key, ...rest] = line.split(":");
         frontmatter[key.trim()] = rest.join(":").trim();
       });
+      body = source.slice(match[0].length).trim();
     }
 
     const rawDateRead = frontmatter.date_read
@@ -87,7 +103,7 @@ function getLastBookRead(): BookMeta | undefined {
 
     return {
       slug: filename.replace(/\.mdx$/, ""),
-      title: frontmatter.title || filename.replace(/\.mdx$/, ""),
+      title: cleanTitle(frontmatter.title || filename.replace(/\.mdx$/, "")),
       dateRead: rawDateRead
         ? rawDateRead.toLocaleDateString("en-NZ", {
             year: "numeric",
@@ -96,6 +112,7 @@ function getLastBookRead(): BookMeta | undefined {
           })
         : undefined,
       rawDateRead,
+      hasContent: body.length > 0,
     };
   });
 
@@ -123,12 +140,16 @@ export default function Home() {
                 {mostRecentPost.date}
               </span>
             )}
-            <Link
-              href={`/blog/${mostRecentPost.slug}`}
-              className="hover:bg-[orange]"
-            >
-              {mostRecentPost.title}
-            </Link>
+            {mostRecentPost.hasContent ? (
+              <Link
+                href={`/blog/${mostRecentPost.slug}`}
+                className="hover:bg-[orange]"
+              >
+                {mostRecentPost.title}
+              </Link>
+            ) : (
+              <span>{mostRecentPost.title}</span>
+            )}
           </div>
         )}
 
@@ -140,12 +161,16 @@ export default function Home() {
                 {lastBookRead.dateRead}
               </span>
             )}
-            <Link
-              href={`/reading/${lastBookRead.slug}`}
-              className="hover:bg-[orange]"
-            >
-              {lastBookRead.title}
-            </Link>
+            {lastBookRead.hasContent ? (
+              <Link
+                href={`/reading/${lastBookRead.slug}`}
+                className="hover:bg-[orange]"
+              >
+                {lastBookRead.title}
+              </Link>
+            ) : (
+              <span>{lastBookRead.title}</span>
+            )}
           </div>
         )}
       <div>
