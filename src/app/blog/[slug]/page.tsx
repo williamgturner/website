@@ -17,7 +17,7 @@ export default async function BlogPost({ params }: Props) {
   const mdxSource = await serialize(content);
 
   return (
-    <PostLayout title={data.title} date={data.date}>
+    <PostLayout title={data.title} date={data.date} tags={data.tags}>
       <MDXRenderer mdxSource={mdxSource} />
     </PostLayout>
   );
