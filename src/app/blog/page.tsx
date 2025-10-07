@@ -54,7 +54,6 @@ export default function Blog() {
   return (
     <div className="prose p-4">
       <h1 className="mb-4">Blog</h1>
-      <h1>Recent</h1>
       <ul className="space-y-4">
         {posts.map((post) => (
           <li key={post.slug}>
