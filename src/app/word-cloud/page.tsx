@@ -20,9 +20,10 @@ export default function WordCloudPage() {
   });
 
   const words = allText
-    .replace(/[^a-zA-Z0-9\s]/g, "")
-    .split(/\s+/)
-    .filter(Boolean);
+  .replace(/[^a-zA-Z0-9\s-]/g, "")
+  .split(/[\s-]+/)
+  .filter(Boolean)
+  .filter((word) => word.length <= 25);
 
   return (
     <div className="p-4 w-full">
