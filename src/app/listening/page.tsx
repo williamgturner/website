@@ -35,7 +35,7 @@ export default function TopTracks() {
       <h1 className="mb-4">What I&apos;ve Been Listening to Recently</h1>
       <ul className="space-y-4">
         {tracks.map((track) => (
-          <li key={track.songUrl} className="flex items-center gap-3 hover:bg-[darkorange] hover:text-[white]">
+          <li key={track.songUrl} className="flex items-center gap-3 hover:bg-[darkorange]">
             {track.albumImageUrl && (
               <img
                 src={track.albumImageUrl}

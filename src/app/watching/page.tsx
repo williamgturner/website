@@ -4,22 +4,22 @@ import matter from "gray-matter";
 import Link from "next/link";
 import Script from "next/script";
 
-type ReadingFrontmatter = {
+type WatchingFrontmatter = {
   title: string;
-  author?: string;
-  year_published?: string;
-  date_read?: string;
+  director?: string;
+  year_released?: string;
+  date_watched?: string;
   rating?: number;
 };
 
 type ReadingItem = {
   slug: string;
-  frontmatter: ReadingFrontmatter;
+  frontmatter: WatchingFrontmatter;
   content: string;
 };
 
 export default function Reading() {
-  const dir = path.join(process.cwd(), "books");
+  const dir = path.join(process.cwd(), "film&tv");
   const files = fs.readdirSync(dir).filter((f) => f.endsWith(".mdx"));
 
   const readings: ReadingItem[] = files.map((file) => {
@@ -27,11 +27,11 @@ export default function Reading() {
     const raw = fs.readFileSync(filePath, "utf-8");
     const { data, content } = matter(raw);
 
-    const frontmatter: ReadingFrontmatter = {
+    const frontmatter: WatchingFrontmatter = {
       title: data.title ?? file.replace(/\.mdx$/, ""),
-      author: data.author,
-      year_published: data.year_published,
-      date_read: data.date_read,
+      director: data.director,
+      year_released: data.year_released,
+      date_watched: data.date_watched,
       rating: data.rating,
     };
 
@@ -42,14 +42,14 @@ export default function Reading() {
     };
   });
 
-  // Sort by date_read descending
+  // Sort by date_watched descending
   readings.sort((a, b) => {
     const parseDate = (d?: string) => {
       if (!d) return new Date(0);
       if (/^\d{4}$/.test(d)) return new Date(`${d}-01-01`);
       return new Date(d.replace(/\//g, "-"));
     };
-    return parseDate(b.frontmatter.date_read).getTime() - parseDate(a.frontmatter.date_read).getTime();
+    return parseDate(b.frontmatter.date_watched).getTime() - parseDate(a.frontmatter.date_watched).getTime();
   });
 
   const formatDateLE = (d?: string) => {
@@ -62,39 +62,31 @@ export default function Reading() {
 
   return (
     <div className="p-4">
-      <h1 className="mb-4">What I&apos;ve Been Reading Recently</h1>
+      <h1 className="mb-4">What I&apos;ve Been Watching Recently</h1>
       <ul className="space-y-4">
         {readings.map((item) => (
-          <li key={item.slug} className="group hover:bg-[darkorange] border-l-2 ps-2">
+          <li key={item.slug} className="group border-l-2 ps-2 hover:bg-[darkorange]">
             {item.content.length > 0 ? (
-              <Link href={`/reading/${item.slug}`} className="block w-full h-full">
+              <Link href={`/watching/${item.slug}`} className="block w-full h-full">
                 {item.frontmatter.title}
-                {item.frontmatter.year_published && ` (${item.frontmatter.year_published})`}
+                {item.frontmatter.year_released && ` (${item.frontmatter.year_released})`}
               </Link>
             ) : (
               <span>
                 {item.frontmatter.title}
-                {item.frontmatter.year_published && ` (${item.frontmatter.year_published})`}
+                {item.frontmatter.year_released && ` (${item.frontmatter.year_released})`}
+                
               </span>
             )}
-            <div className="text-sm text-[red] group-hover:text-black">
-              {item.frontmatter.author && `${item.frontmatter.author}, `}
-              {item.frontmatter.date_read && `read ${formatDateLE(item.frontmatter.date_read)}`}
-              {item.frontmatter.rating && `, rating: ${item.frontmatter.rating}/10`}
+            
+            <div className="text-[#6d6d6d] text-sm italic">
+                {item.frontmatter.rating && `Rating: ${item.frontmatter.rating}/10`}
+                {item.frontmatter.date_watched && ` | Watched ${formatDateLE(item.frontmatter.date_watched)}`}
             </div>
           </li>
         ))}
       </ul>
-      <div className="mt-4" id="website-bookclub">
-        <Script
-          src="https://isak.me/onionring/onionring-variables.js"
-          strategy="afterInteractive"
-        />
-        <Script
-          src="https://isak.me/onionring/onionring-widget.js"
-          strategy="afterInteractive"
-        />
-      </div>
+
     </div>
   );
 }

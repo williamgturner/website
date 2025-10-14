@@ -12,6 +12,7 @@ const pages = [
   { name: "photos", href: "/photos" },
   { name: "listening", href: "/listening" },
   { name: "reading", href: "/reading" },
+  { name: "watching", href: "/watching" },
   { name: "friends", href: "/friends" },
   { name: "word cloud", href: "/word-cloud" },
   { name: "about", href: "/about" },
